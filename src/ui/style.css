@@ -1,0 +1,105 @@
+* {
+  all: unset;
+  background-color: transparent;
+  color: #ffffff;
+  font-family: JetBrainsMono;
+  font-size: 13px;
+}
+
+window {
+  background-color: rgba(35, 38, 73, 0.93);
+  border-radius: 15px;
+  margin-left: 3px;
+  margin-right: 3px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.left-section {
+  background-color: #333333;
+}
+
+.right-section {
+  background-color: #444444;
+}
+
+.center-section {
+  background-color: rgba(84, 6, 255, 0.33);
+  padding: 0 20px;
+}
+
+.center-section,
+.left-section,
+.right-section {
+  border-radius: 20px;
+}
+
+.workspace,
+.workspace-active {
+  font-size: 10px;
+  margin: 0 10px;
+  background-color: transparent;
+  transition: background-color 0.8s ease;
+  cursor: pointer;
+}
+.workspace-active {
+  color: #ffffff;
+  font-weight: bold;
+  transition: color 0.8s ease;
+}
+.workspace:hover {
+  color: #e46c6c;
+}
+
+.workspace-active {
+  border: none;
+  color: #e46c6c;
+}
+
+.app_container button {
+  background-color: transparent;
+}
+
+.app_container:hover {
+  background-color: rgba(26, 29, 64, 0.7);
+}
+label {
+  background-color: transparent;
+  font-size: 12px;
+  color: #ffffff;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+entry {
+  padding: 10px;
+  background-color: rgba(26, 29, 64, 0.95);
+}
+
+box {
+  color: #ffffff;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+box:hover {
+  background-color: transparent;
+  border-radius: 10px;
+}
+popover {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: rgba(26, 29, 64, 1);
+  color: #ffffff !important;
+  border: none;
+  border-radius: 9px;
+}
+
+button:hover {
+  background-color: rgba(34, 38, 73, 0.7);
+  border: 0px solid #ffffff;
+  border-radius: 9px;
+}

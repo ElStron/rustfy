@@ -1,0 +1,78 @@
+window {
+  background-color: #c2c2c2;
+}
+
+.left-section {
+  background-color: #333333;
+}
+
+.right-section {
+  background-color: #444444;
+}
+
+.center-section {
+  background-color: rgba(84, 6, 255, 0.33);
+  padding: 0 20px;
+}
+
+.center-section,
+.left-section,
+.right-section {
+  border-radius: 20px;
+}
+
+.workspace,
+.workspace-active {
+  font-size: 10px;
+  margin: 0 10px;
+  background-color: transparent;
+  transition: background-color 0.8s ease;
+  cursor: pointer;
+}
+.workspace-active {
+  color: #ffffff;
+  font-weight: bold;
+  transition: color 0.8s ease;
+}
+.workspace:hover {
+  color: #e46c6c;
+}
+
+.workspace-active {
+  border: none;
+  color: #e46c6c;
+}
+label {
+  font-size: 12px;
+  color: #eeeeee;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border-radius: 6px;
+  color: #eeeeee;
+  background-color: #444444;
+  padding: 4px 10px;
+}
+
+button:hover {
+  background-color: #666666;
+}
+
+popover {
+  background-color: #333333;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+popover button {
+  background-color: transparent;
+  color: #cccccc;
+  border: none;
+}
+
+popover button:hover {
+  background-color: #555555;
+}
