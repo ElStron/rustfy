@@ -1,0 +1,1 @@
+Panel Apps for Hyprland
