@@ -2,6 +2,7 @@ use crate::AppInfo;
 use std::fs;
 
 use gtk::prelude::*;
+use gtk::ApplicationWindow;
 use gtk::{Box as GtkBox, Button, Entry, Image, Orientation};
 
 use std::path::Path;
@@ -82,7 +83,12 @@ fn parse_desktop_file(content: &str) -> Option<AppInfo> {
     })
 }
 
-pub fn filter_applications(search_text: &str, vbox: &GtkBox, applications: &[AppInfo]) {
+pub fn filter_applications(
+    search_text: &str,
+    vbox: &GtkBox,
+    applications: &[AppInfo],
+    window: &ApplicationWindow,
+) -> Vec<AppInfo> {
     let mut children = vec![];
     let mut child = vbox.first_child();
     while let Some(widget) = child {
@@ -96,33 +102,39 @@ pub fn filter_applications(search_text: &str, vbox: &GtkBox, applications: &[App
         vbox.remove(&widget);
     }
 
-    applications
+    let filtered: Vec<AppInfo> = applications
         .iter()
         .filter(|AppInfo { name, .. }| name.to_lowercase().contains(&search_text.to_lowercase()))
-        .for_each(|AppInfo { name, icon, exec }| {
-            let hbox = GtkBox::new(Orientation::Horizontal, 3);
-            hbox.add_css_class("app_container");
-            hbox.set_hexpand(true);
+        .cloned()
+        .collect();
 
-            if let Some(ref icon_name) = icon {
-                let image = load_icon(icon_name, 16);
-                hbox.append(&image);
-            }
+    for AppInfo { name, icon, exec } in &filtered {
+        let hbox = GtkBox::new(Orientation::Horizontal, 3);
+        hbox.add_css_class("app_container");
+        hbox.set_hexpand(true);
 
-            let button = Button::with_label(name);
-            let exec_cmd = exec.clone();
+        if let Some(ref icon_name) = icon {
+            let image = load_icon(icon_name, 16);
+            hbox.append(&image);
+        }
 
-            button.connect_clicked(move |_| {
-                let _ = Command::new("sh")
-                    .arg("-c")
-                    .arg(&exec_cmd)
-                    .current_dir(std::env::var("HOME").unwrap())
-                    .spawn();
-            });
+        let button = Button::with_label(name);
+        let exec_cmd = exec.clone();
 
-            hbox.append(&button);
-            vbox.append(&hbox);
+        let window_clone = window.clone();
+        button.connect_clicked(move |_| {
+            let _ = Command::new("sh")
+                .arg("-c")
+                .arg(&exec_cmd)
+                .current_dir(std::env::var("HOME").unwrap())
+                .spawn();
+            window_clone.close();
         });
+
+        hbox.append(&button);
+        vbox.append(&hbox);
+    }
+    filtered
 }
 
 pub fn load_icon(icon_name: &str, size: i32) -> Image {
