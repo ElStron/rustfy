@@ -62,7 +62,6 @@ fn main() {
                 let filtered = filter_applications(&search_text, &vbox, &applications, &win);
                 *filtered_apps.borrow_mut() = filtered.clone();
                 *selected_index.borrow_mut() = 0;
-                // Aquí deberías resaltar el primer elemento si hay resultados
             }
         });
 
@@ -75,7 +74,6 @@ fn main() {
             key_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
             key_controller.connect_key_pressed(move |_, keyval, _, _| {
                 use gtk::gdk::Key;
-
                 let mut idx: usize = *selected_index.borrow();
                 let apps = filtered_apps.borrow();
                 let len = apps.len();
@@ -110,6 +108,10 @@ fn main() {
                                 .ok();
                             win.close();
                         }
+                        true.into()
+                    }
+                    Key::Escape => {
+                        win.close();
                         true.into()
                     }
 
